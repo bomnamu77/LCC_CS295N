@@ -1,0 +1,24 @@
+﻿@model Community.Models.Contact
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Contact View</title>
+</head>
+<body>
+    <p>
+        <h2>Thanks, please check your message</h2><br />
+
+        <h3>Your Name : @Model.User.Name</h3><br />
+
+        <h3>Your Email : @Model.User.Email</h3><br />
+        <h3>Your Message : @Model.Message</h3>
+    </p>
+    <br />
+
+    <a href="Contact">Contacts List</a>
+</body>
+</html>

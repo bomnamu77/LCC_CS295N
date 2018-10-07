@@ -39,14 +39,15 @@ namespace Community.Controllers
         [HttpPost]
         public ViewResult ContactInputs(Contact contact)
         {
-            
+            //ViewData["Message"] = "Your contact page.";
             if (ModelState.IsValid)
             {
                 contact.TimeStamp = DateTime.Now;
                 ContactRepository.AddContact(contact);
-                  
-                return View("Contact", ContactRepository.Contacts);
-                
+
+                return View("ContactView",contact);
+                //return View("Contact", ContactRepository.Contacts);
+
             }
             else
             {
