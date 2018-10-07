@@ -1,9 +1,37 @@
-﻿@{
+﻿@model List<Location>
+@{
     Layout = null;
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<p>
-    Important locations and links
-</p>
+<head>
+    
+    <title>Locations</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    
+    <h2>Locations</h2>
+    <h3>Important locations and links</h3>
+    <table class="table table-sm table-striped table-bordered" border="1">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Description</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Location location in Model)
+            {
+                <tr>
+                    <td><a href=@location.Link>@location.Name</a></td>
+                    <td>@location.Description</td>
+                </tr>
+                    
+             }
+        </tbody>
+    </table>
+
+                    <a href="/Home">Home</a>
+</body>
+

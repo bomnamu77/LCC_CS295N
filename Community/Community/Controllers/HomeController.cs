@@ -10,6 +10,11 @@ namespace Community.Controllers
 {
     public class HomeController : Controller
     {
+        Contact contact;
+        public HomeController()
+        {
+            contact = new Contact();
+        }
         public IActionResult Index()
         {
             return View();
@@ -21,26 +26,34 @@ namespace Community.Controllers
 
             return View();
         }
-
-        [HttpGet]
         public ViewResult Contact()
+        {
+            List<Contact> contacts = ContactRepository.Contacts;
+            return View(contacts);
+        }
+        [HttpGet]
+        public ViewResult ContactInputs()
         {
             return View();
         }
         [HttpPost]
-        public ViewResult Contact(Contact contact)
+        public ViewResult ContactInputs(Contact contact)
         {
-            ViewData["Message"] = "Your contact page.";
+            
             if (ModelState.IsValid)
             {
-
-                return View("ContactInputs", contact);
+                contact.TimeStamp = DateTime.Now;
+                ContactRepository.AddContact(contact);
+                  
+                return View("Contact", ContactRepository.Contacts);
+                
             }
             else
             {
                 // there is a validation error
                 return View();
             }
+
 
         }
     }

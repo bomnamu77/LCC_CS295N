@@ -1,4 +1,6 @@
-﻿@model Community.Models.Contact
+﻿
+
+@model Community.Models.Contact
 @{
     Layout = null;
 }
@@ -6,17 +8,36 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Contact Inputs</title>
+    <title>Contact</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <p>
-        <h2>Thanks, please check your message</h2><br />
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>Contact Administrator</h4></div>
+        <div class="panel-body">
+            <form class="p-a-1" asp-action="ContactInputs" method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="User.Name">Your name:</label>
+                    <input class="form-control" asp-for="User.Name" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="User.Email">Your email:</label>
+                    <input class="form-control" asp-for="User.Email" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Message">Your Message:</label>
+                    <input class="form-control" asp-for="Message" />
+                </div>
 
-        <h3>Your Name : @Model.Name</h3><br />
-
-        <h3>Your Email : @Model.Email</h3><br />
-        <h3>Your Message : @Model.Message</h3>
-    </p>
-    
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
