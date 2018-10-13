@@ -1,6 +1,7 @@
 ﻿
 
-@model Community.Models.Contact
+@model Community.Models.Message
+
 @{
     Layout = null;
 }
@@ -8,27 +9,29 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Contact</title>
+    <title>New Message</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
     <div class="panel panel-success">
-        <div class="panel-heading text-center"><h4>Contact : send messages</h4></div>
+        <div class="panel-heading text-center"><h4>Input Message</h4></div>
         <div class="panel-body">
-            <form class="p-a-1" asp-action="ContactInputs" method="post">
+            <form class="p-a-1" asp-action="InputMessage" method="post">
                 <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="From.Name" value="John"/>
+                <input type="hidden" asp-for="From.Email" value="john@g.com"/>
                 <div class="form-group">
-                    <label asp-for="User.Name">Your name:</label>
-                    <input class="form-control" asp-for="User.Name" />
+                    <label asp-for="To.Name">Receiver Name:</label>
+                    <input class="form-control" asp-for="To.Name" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="User.Email">Your email:</label>
-                    <input class="form-control" asp-for="User.Email" />
+                    <label asp-for="To.Email">Receiver Email:</label>
+                    <input class="form-control" asp-for="To.Email" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Message">Your Message:</label>
-                    <input class="form-control" asp-for="Message" />
+                    <label asp-for="Text">Your Message:</label>
+                    <input class="form-control" asp-for="Text" />
                 </div>
 
                 <div class="text-center">

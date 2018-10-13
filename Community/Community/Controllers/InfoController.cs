@@ -59,13 +59,14 @@ namespace Community.Controllers
         {
             return View();
         }
+        //Show Locations data
         public ViewResult Locations()
         {
             
             List<Location> locations = InfoRepository.Locations;
             return View(locations);
         }
-
+        //Show People data
         public ViewResult People ()
         {
             ViewData["Message"] = "Significant people and links if available";

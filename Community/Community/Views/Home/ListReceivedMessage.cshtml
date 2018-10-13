@@ -1,0 +1,41 @@
+﻿@model List<Community.Models.Message>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Locations</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="panel-body">
+        <h2>Message Received List</h2>
+        <table class="table table-sm table-striped table-bordered" border="1">
+            <thead>
+                <tr>
+                    <th>Sender Name</th>
+                    <th>Sender Email</th>
+                    <th>Time</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Message message in Model)
+                {
+                <tr>
+                    <td>@message.From.Name</td>
+                    <td>@message.From.Email</td>
+                    <td>@message.TimeStamp</td>
+                    <td>@message.Text</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    <a href="InputMessage">Send New Message</a> |
+    <a href="/Home">Home</a>
+</body>
+</html>
