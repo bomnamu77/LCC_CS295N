@@ -142,7 +142,7 @@ namespace Community.Controllers
                 delegate (Message msg)
                 {
                     return msg.From.Name == "John" 
-                        && msg.From.Email == "john@g.com" && msg.Replies.Count==0;
+                        && msg.From.Email == "john@g.com";
 
                 });
             messages.Sort((m1, m2) => DateTime.Compare(m1.TimeStamp, m2.TimeStamp));
