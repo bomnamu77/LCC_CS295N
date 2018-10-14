@@ -52,6 +52,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[0],
                     From = MessageRepository.Users[1],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "Hello"
                 };
 
@@ -61,6 +63,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[0],
                     From = MessageRepository.Users[2],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "Do you have this music?"
                 };
 
@@ -70,6 +74,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[0],
                     From = MessageRepository.Users[2],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "When is the rehearsal?"
                 };
 
@@ -79,6 +85,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[0],
                     From = MessageRepository.Users[1],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "Next week's assignment!"
                 };
 
@@ -87,6 +95,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[2],
                     From = MessageRepository.Users[0],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "Did you get this?"
                 };
 
@@ -97,6 +107,8 @@ namespace Community.Controllers
                 {
                     To = MessageRepository.Users[1],
                     From = MessageRepository.Users[0],
+                    MsgID = Guid.NewGuid().ToString(),
+                    TimeStamp = DateTime.Now,
                     Text = "Due is this Monday!!"
                 };
 
@@ -130,10 +142,11 @@ namespace Community.Controllers
                 delegate (Message msg)
                 {
                     return msg.From.Name == "John" 
-                        && msg.From.Email == "john@g.com";
+                        && msg.From.Email == "john@g.com" && msg.Replies.Count==0;
 
                 });
-            
+            messages.Sort((m1, m2) => DateTime.Compare(m1.TimeStamp, m2.TimeStamp));
+
             return View(messages);
         }
 
@@ -163,6 +176,7 @@ namespace Community.Controllers
             
             if (ModelState.IsValid)
             {
+                message.MsgID = Guid.NewGuid().ToString();
                 message.TimeStamp = DateTime.Now;
                 MessageRepository.AddMessage(message);
 
@@ -174,6 +188,34 @@ namespace Community.Controllers
                 // there is a validation error
                 return View();
             }
+
+
+        }
+
+        [HttpGet]
+        //Input message get
+        public ViewResult ReplyMessage(string msgid)
+        {
+            return View("ReplyMessage", HttpUtility.HtmlDecode(msgid));
+        }
+        [HttpPost]
+        public RedirectToActionResult ReplyMessage(string msgid, string text)
+        {
+            Message orgmsg = MessageRepository.GetMessageByID(msgid);
+
+            Message repmsg = new Message();
+            repmsg.To = orgmsg.From;
+            repmsg.From= orgmsg.To;
+
+            repmsg.MsgID = Guid.NewGuid().ToString();
+            repmsg.TimeStamp = DateTime.Now;
+            repmsg.Text = text;
+            MessageRepository.AddMessage(repmsg);
+            orgmsg.Replies.Add(repmsg);
+
+            return RedirectToAction("ListReceivedMessage");
+
+            
 
 
         }

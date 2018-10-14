@@ -23,5 +23,11 @@ namespace Community.Models
         {
             users.Add(user);
         }
+
+        public static Message GetMessageByID(string msgID)
+        {
+            Message message = messages.Find(m => m.MsgID == msgID);
+            return message;
+        }
     }
 }

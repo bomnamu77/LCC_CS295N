@@ -19,18 +19,33 @@
                     <th>Sender Email</th>
                     <th>Time</th>
                     <th>Message</th>
+                    <th>Reply</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (Message message in Model)
                 {
-                <tr>
-                    <td>@message.From.Name</td>
-                    <td>@message.From.Email</td>
-                    <td>@message.TimeStamp</td>
-                    <td>@message.Text</td>
-                </tr>
-                }
+                    <tr>
+                        <td>@message.From.Name</td>
+                        <td>@message.From.Email</td>
+                        <td>@message.TimeStamp</td>
+                        <td>@message.Text</td>
+                        <td><a asp-action="ReplyMessage" asp-route-msgid="@message.MsgID">Reply</a></td>
+                    </tr>
+                    @if (message.Replies.Count > 0)
+                    {
+                    @foreach (Message r in message.Replies)
+                    {
+                    <tr>
+                        <td>=> @r.From.Name</td>
+                        <td>@r.From.Email</td>
+                        <td>@r.TimeStamp</td>
+                        <td>@r.Text</td>
+                        <td><a asp-action="ReplyMessage" asp-route-msgid="@r.MsgID">Reply</a></td>
+                    </tr>
+                    }
+                        }
+                    }
             </tbody>
         </table>
     </div>

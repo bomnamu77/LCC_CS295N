@@ -33,10 +33,27 @@ namespace Community.Controllers
                 };
 
                 InfoRepository.AddLocation(location);
+
+                location = new Location()
+                {
+                    Name = "Beacock Music Eugene",
+                    Link = "https://www.beacockmusic.com/",
+                    Description = "Music Shop"
+                };
+
+                InfoRepository.AddLocation(location);
             }
             // This is temporary code, just for testing
             if (InfoRepository.Peoples.Count == 0)  // only do this if it hasn't been done already
             {
+                people = new People()
+                {
+                    Name = "Leonard Bernstein",
+                    Link = "https://en.wikipedia.org/wiki/Leonard_Bernstein",
+                    Description = "an American composer, conductor, author, music lecturer, and pianist."
+                };
+
+                InfoRepository.AddPeople(people);
                 people = new People()
                 {
                     Name = "Richard Long",
@@ -64,6 +81,8 @@ namespace Community.Controllers
         {
             
             List<Location> locations = InfoRepository.Locations;
+            locations.Sort((b1, b2) => string.Compare(b1.Name, b2.Name, StringComparison.Ordinal));
+
             return View(locations);
         }
         //Show People data
@@ -72,6 +91,8 @@ namespace Community.Controllers
             ViewData["Message"] = "Significant people and links if available";
 
             List<People> peoples = InfoRepository.Peoples;
+            peoples.Sort((p1, p2) => string.Compare(p1.Name, p2.Name, StringComparison.Ordinal));
+
             return View(peoples);
         }
     }
