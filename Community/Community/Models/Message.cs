@@ -17,6 +17,10 @@ namespace Community.Models
         public DateTime TimeStamp { get; set; }
         //replies from this message
         public List<Message> Replies { get { return replies; } }
+        //An indicator whether this is replied message or not, default:false
+        public bool IsReply { get; set; } = false;
+        //Priority 1-3 (1: low, 2: medium, 3: high), default:0
+        public int Priority { get; set; } = 0;
     }
 }
 

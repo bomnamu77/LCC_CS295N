@@ -15,6 +15,7 @@
         <table class="table table-sm table-striped table-bordered" border="1">
             <thead>
                 <tr>
+                    <th>Priority</th>
                     <th>Sender Name</th>
                     <th>Sender Email</th>
                     <th>Time</th>
@@ -25,7 +26,18 @@
             <tbody>
                 @foreach (Message message in Model)
                 {
-                    <tr>
+                <tr>
+                    <td>
+                        @if (message.Priority == 0)
+                        {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID">Priority</a>}
+                        @if (message.Priority == 1)
+                        {<p style="color:black;">Low</p>}
+                        @if (message.Priority == 2)
+                        {<p style="color:blue;">Medium</p>}
+                        @if (message.Priority == 3)
+                        {<p style="color:red;">High</p>}
+
+                        </td>
                         <td>@message.From.Name</td>
                         <td>@message.From.Email</td>
                         <td>@message.TimeStamp</td>
@@ -36,14 +48,24 @@
                     {
                     @foreach (Message r in message.Replies)
                     {
-                    <tr>
-                        <td>=> @r.From.Name</td>
-                        <td>@r.From.Email</td>
-                        <td>@r.TimeStamp</td>
-                        <td>@r.Text</td>
-                        <td></td>
-                        <!--td><a asp-action="ReplyMessage" asp-route-msgid="@r.MsgID">Reply</a></td-->
-                    </tr>
+                <tr>
+                    <td>
+                        @if (r.Priority == 0)
+                        {<a asp-action="SetPriority" asp-route-msgid="@r.MsgID">Priority</a>}
+                        @if (r.Priority == 1)
+                        {<p style="color:black;">Low</p>}
+                        @if (r.Priority == 2)
+                        {<p style="color:blue;">Medium</p>}
+                        @if (r.Priority == 3)
+                        {<p style="color:red;">High</p>}
+                    </td>
+                    <td>=> @r.From.Name</td>
+                    <td>@r.From.Email</td>
+                    <td>@r.TimeStamp</td>
+                    <td>@r.Text</td>
+                    <td></td>
+                    <!--td><a asp-action="ReplyMessage" asp-route-msgid="@r.MsgID">Reply</a></td-->
+                </tr>
                     }
                         }
                     }

@@ -19,8 +19,10 @@
         <div class="panel-body">
             <form class="p-a-1" asp-action="InputMessage" method="post">
                 <div asp-validation-summary="All"></div>
-                <input type="hidden" asp-for="From.Name" value="John"/>
-                <input type="hidden" asp-for="From.Email" value="john@g.com"/>
+                <input type="hidden" asp-for="From.Name" value="John" />
+                <input type="hidden" asp-for="From.Email" value="john@g.com" />
+                <input type="hidden" asp-for="IsReply" value="false" />
+
                 <div class="form-group">
                     <label asp-for="To.Name">Receiver Name:</label>
                     <input class="form-control" asp-for="To.Name" />
