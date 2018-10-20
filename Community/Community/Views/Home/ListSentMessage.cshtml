@@ -15,6 +15,7 @@
         <table class="table table-sm table-striped table-bordered" border="1">
             <thead>
                 <tr>
+                    <th>Priority</th>
                     <th>Receiver Name</th>
                     <th>Receiver Email</th>
                     <th>Time</th>
@@ -25,6 +26,17 @@
                 @foreach (Message message in Model)
                 {
                 <tr>
+                    <td>
+                        @if (message.Priority == 0)
+                        {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID" asp-route-page="sent">Priority</a>}
+                        @if (message.Priority == 1)
+                        {<p style="color:black;"><b>Low</b></p>}
+                        @if (message.Priority == 2)
+                        {<p style="color:blue;"><b>Medium</b></p>}
+                        @if (message.Priority == 3)
+                        {<p style="color:red;"><b>High</b></p>}
+
+                    </td>
                     <td>@message.To.Name</td>
                     <td>@message.To.Email</td>
                     <td>@message.TimeStamp</td>

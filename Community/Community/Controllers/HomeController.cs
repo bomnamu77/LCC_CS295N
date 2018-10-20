@@ -126,15 +126,16 @@ namespace Community.Controllers
             return View("SetPriority", HttpUtility.HtmlDecode(msgid));
         }
         [HttpPost]
-        public RedirectToActionResult SetPriority(string msgid, int priority)
+        public RedirectToActionResult SetPriority(string msgid, int priority, string page)
         {
             Message msg = MessageRepository.GetMessageByID(msgid);
 
             msg.Priority = priority;
 
-            
-
-            return RedirectToAction("ListReceivedMessage");
+            if (page=="sent")
+                return RedirectToAction("ListSentMessage");
+            else 
+                return RedirectToAction("ListReceivedMessage");
 
 
 

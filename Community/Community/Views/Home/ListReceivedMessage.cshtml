@@ -29,20 +29,20 @@
                 <tr>
                     <td>
                         @if (message.Priority == 0)
-                        {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID">Priority</a>}
+                        {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID"  asp-route-page="received">Priority</a>}
                         @if (message.Priority == 1)
-                        {<p style="color:black;">Low</p>}
+                        {<p style="color:black;"><b>Low</b></p>}
                         @if (message.Priority == 2)
-                        {<p style="color:blue;">Medium</p>}
+                        {<p style="color:blue;"><b>Medium</b></p>}
                         @if (message.Priority == 3)
-                        {<p style="color:red;">High</p>}
+                        {<p style="color:red;"><b>High</b></p>}
 
-                        </td>
-                        <td>@message.From.Name</td>
-                        <td>@message.From.Email</td>
-                        <td>@message.TimeStamp</td>
-                        <td>@message.Text</td>
-                        <td><a asp-action="ReplyMessage" asp-route-msgid="@message.MsgID">Reply</a></td>
+                    </td>
+                    <td>@message.From.Name</td>
+                    <td>@message.From.Email</td>
+                    <td>@message.TimeStamp</td>
+                    <td>@message.Text</td>
+                    <td><a asp-action="ReplyMessage" asp-route-msgid="@message.MsgID">Reply</a></td>
                     </tr>
                     @if (message.Replies.Count > 0)
                     {
@@ -53,11 +53,11 @@
                         @if (r.Priority == 0)
                         {<a asp-action="SetPriority" asp-route-msgid="@r.MsgID">Priority</a>}
                         @if (r.Priority == 1)
-                        {<p style="color:black;">Low</p>}
+                        {<p style="color:black;"><b>Low</b></p>}
                         @if (r.Priority == 2)
-                        {<p style="color:blue;">Medium</p>}
+                        {<p style="color:blue;"><b>Medium</b></p>}
                         @if (r.Priority == 3)
-                        {<p style="color:red;">High</p>}
+                        {<p style="color:red;"><b>High</b></p>}
                     </td>
                     <td>=> @r.From.Name</td>
                     <td>@r.From.Email</td>
