@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        #mainDiv {
+            padding: 20px;
+            border: solid medium black;
+            font-size: 15pt
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="mainDiv">
+        @RenderBody()
+    </div>
+</body>
+</html>

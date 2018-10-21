@@ -1,23 +1,18 @@
 ﻿@model List<Location>
 @{
-    Layout = null;
+
+    ViewBag.Title = "Locations";
 }
 
-<head>
-    
-    <title>Locations</title>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-</head>
-<body>
-    
-    <h2>Locations</h2>
+
+    <h2>@ViewBag.Title</h2>
     <h3>Important locations and links</h3>
     <table class="table table-sm table-striped table-bordered" border="1">
         <thead>
             <tr>
                 <th>Location</th>
                 <th>Description</th>
-                
+
             </tr>
         </thead>
         <tbody>
@@ -27,11 +22,11 @@
                     <td><a href=@location.Link>@location.Name</a></td>
                     <td>@location.Description</td>
                 </tr>
-                    
-             }
+
+            }
         </tbody>
     </table>
 
-                    <a href="/Home">Home</a>
-</body>
+    <a href="/Home">Home</a>
+
 

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        #mainDiv {
+            padding: 20px;
+            border: solid medium black;
+            font-size: 13pt
+        }
+    </style>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div id="mainDiv">
+        <h3><b>@ViewBag.Title </b></h3>
+        <h4> @ViewData["UserName"] (@ViewData["UserEmail"])</h4>
+        @RenderBody()
+    </div>
+</body>
+</html>

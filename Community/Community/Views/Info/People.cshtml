@@ -1,37 +1,34 @@
 ﻿@model List<People>
 @{
-    Layout = null;
+
+    ViewBag.Title = "People";
 }
 
-<head>
 
-    <title>People</title>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-</head>
-<body>
+<!--link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" /-->
 
-    <h2>People</h2>
-    <h3>Significant people and links if available</h3>
-    <table class="table table-sm table-striped table-bordered" border="1">
-        <thead>
+<h2>@ViewBag.Title</h2>
+<h3>Significant people and links if available</h3>
+<table>
+    <thead>
+        <tr style="padding: 5px;">
+            <th>People</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (People people in Model)
+        {
             <tr>
-                <th>People</th>
-                <th>Description</th>
-
+                <td><a href=@people.Link> @people.Name</a></td>
+                <td>@people.Description</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (People people in Model)
-            {
-                <tr>
-                    <td><a href=@people.Link> @people.Name</a></td>
-                    <td>@people.Description</td>
-                </tr>
 
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <a href="/Home">Home</a>
-</body>
+<a href="/Home">Home</a>
+
 
