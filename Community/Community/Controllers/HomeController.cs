@@ -27,9 +27,8 @@ namespace Community.Controllers
         public ViewResult Contact()
         {
             // First user (John, john@g.com) will be a current user
-            User user = MessageRepository.Users[0];
-            ViewData["UserName"] = user.Name;
-            ViewData["Email"] = user.Email;
+            SetUserData();
+
             return View();
         }
 

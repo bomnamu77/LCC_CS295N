@@ -5,7 +5,7 @@
 
 
         <h3>@ViewBag.Title </h3>
-        <h4> Hello! @ViewData["UserName"] (@ViewData["Email"])</h4>
+        <h4> Hello! @ViewBag.UserName (@ViewBag.UserEmail)</h4>
         <h4> You can see messages sent/received and send a new one here</h4>
         <a asp-action="ListSentMessage">Messages Sent</a> | 
         <a asp-action="ListReceivedMessage">Messages Received</a> |
