@@ -11,9 +11,10 @@ namespace HttpPractice.Controllers
         }
 
         [HttpPost]
-        public IActionResult NickName(string name, string nick)
+        public IActionResult NickName(string name, string nickname)
         {
-            return Content("Name: " + name + ", Nickname: " + nick);
+            return Content("Name: " + name + ", Nickname: " + nickname);
+            //return Content("Name: " + name + ", Nickname: " + nick);
         }
 
         [HttpPost]

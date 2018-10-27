@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -15,9 +16,16 @@ namespace HttpPractice.Controllers
             return View();
         }
 
-        public IActionResult PageTwo()
+        public IActionResult PageTwo(string mascott)
         {
-            return View();
+            string cnt = "We are the" + mascott + "!";
+            return Content(cnt);
+        }
+
+        public IActionResult PageThree()
+        {
+            
+            return Content("PageThree");
         }
 
         public IActionResult Quiz()
@@ -35,7 +43,7 @@ namespace HttpPractice.Controllers
                 check = "right!";
             return Content(check);
         }
-
+        [HttpGet]
         public IActionResult Quiz2()
         {
             Random rand = new Random();
@@ -45,13 +53,15 @@ namespace HttpPractice.Controllers
             return View(numbers);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Quiz2(int number1, int number2, int answer)
         {
             string check = "wrong :-(";
             if (number1 * number2 == answer)
                 check = "right!";
+            //return View("Quiz2Answer", check);
             return Content(check);
+            //return View("QuizAnswer", check);
         }
 
 
