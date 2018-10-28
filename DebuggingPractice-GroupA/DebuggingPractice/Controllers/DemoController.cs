@@ -18,7 +18,7 @@ namespace HttpPractice.Controllers
 
         public IActionResult PageTwo(string mascott)
         {
-            string cnt = "We are the" + mascott + "!";
+            string cnt = "We are the " + mascott + "!";
             return Content(cnt);
         }
 
