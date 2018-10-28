@@ -15,8 +15,8 @@
 </head>
 <body>
     <div id="mainDiv">
-        <h3><b>@ViewBag.Title </b></h3>
-        <h4> @ViewData["UserName"] (@ViewData["UserEmail"])</h4>
+        <h3><b>@ViewData["Title"] </b></h3>
+        <h4> @ViewBag.UserName (@ViewBag.UserEmail)</h4>
         @RenderBody()
     </div>
 </body>

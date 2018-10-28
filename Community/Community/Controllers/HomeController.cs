@@ -154,8 +154,8 @@ namespace Community.Controllers
         private void SetUserData()
         {
             User user = MessageRepository.Users[0];
-            ViewData["UserName"] = user.Name;
-            ViewData["UserEmail"] = user.Email;
+            ViewBag.UserName = user.Name;
+            ViewBag.UserEmail = user.Email;
         }
     }
 }

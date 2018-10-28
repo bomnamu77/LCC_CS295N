@@ -1,25 +1,19 @@
 ﻿@model Community.Models.Message
 @{
-    Layout = null;
+    Layout = "_ContactLayout";
+    ViewData["Title"]= "View Message";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Message View</title>
-</head>
-<body>
+
+
     <p>
-        <h2>Thanks, please check your message</h2><br />
+        <h3>Thanks, please check your message</h3><br />
 
-        <h3>From : @Model.From.Name ( @Model.From.Email )</h3><br />
+        <h4>From : @Model.From.Name ( @Model.From.Email )</h4><br />
 
-        <h3>To: @Model.To.Name ( @Model.To.Email )</h3><br />
-        
-        <h3>Message : @Model.Text</h3>
+        <h4>To: @Model.To.Name ( @Model.To.Email )</h4><br />
+
+        <h4>Message : @Model.Text</h4>
     </p>
     <br />
 
-    <a asp-href="ListSentMessage">Messages Sent</a>
-</body>
-</html>
+    <a asp-action="ListSentMessage">Messages Sent</a>
