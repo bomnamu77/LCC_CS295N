@@ -9,8 +9,8 @@
 
 <form class="p-a-1" asp-action="InputMessage" method="post">
     <div asp-validation-summary="All"></div>
-    <input type="hidden" asp-for="From.Name" value="John" />
-    <input type="hidden" asp-for="From.Email" value="john@g.com" />
+    <input type="hidden" asp-for="From.Name" value=@ViewBag.UserName />
+    <input type="hidden" asp-for="From.Email" value=@ViewBag.UserEmail />
     <input type="hidden" asp-for="IsReply" value="false" />
 
     <div class="form-group">

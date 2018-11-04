@@ -97,5 +97,33 @@ namespace Community.Test
                 viewResult.ViewData.Model);
             Assert.Equal(5, model.Count());
         }
+
+        [Fact]
+        public void ReplyMessageTest()
+        {
+            //Arrange
+            var repo = new FakeMessageRepository();
+            var homeController = new HomeController(repo);
+
+
+            //Act
+            string msgID="";
+            foreach (Message m in repo.Messages)
+            {
+                if (m.To.Equals(repo.Users[0]))
+                {
+                    msgID = m.MsgID;
+                    break;
+                }
+            }
+
+            homeController.ReplyMessage(msgID, "ReplyTest");
+
+            //Assert
+            Assert.Equal("ReplyTest",
+               repo.Messages[repo.Messages.Count - 1].Text);
+            Assert.True(repo.Messages[repo.Messages.Count - 1].IsReply);
+            
+        }
     }
 }
