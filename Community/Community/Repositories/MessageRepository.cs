@@ -1,41 +1,42 @@
 ﻿
+using Community.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Community.Models
+namespace Community.Repositories
 {
-    public class MessageRepository
+    public class MessageRepository:IMessageRepository
     {
-        private static List<Message> messages = new List<Message>();
-        private static List<User> users = new List<User>();
+        private List<Message> messages = new List<Message>();
+        private List<User> users = new List<User>();
 
-        public static List<Message> Messages { get { return messages; } }
-        public static List<User> Users { get { return users; } }
+        public List<Message> Messages { get { return messages; } }
+        public List<User> Users { get { return users; } }
 
-        static MessageRepository()
+        public MessageRepository()
         {
             AddTestData();
         }
-        public static void AddMessage(Message message)
+        public void AddMessage(Message message)
         {
             messages.Add(message);
         }
 
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
             users.Add(user);
         }
 
-        public static Message GetMessageByID(string msgID)
+        public Message GetMessageByID(string msgID)
         {
             Message message = messages.Find(m => m.MsgID == msgID);
             return message;
         }
 
 
-        static void AddTestData()
+        void AddTestData()
         {
             Message message;
             User user;
@@ -43,7 +44,7 @@ namespace Community.Models
             message = new Message();
 
             //Add dummy users
-            if (MessageRepository.Users.Count == 0)  // only do this if it hasn't been done already
+            if (Users.Count == 0)  // only do this if it hasn't been done already
             {
                 user = new User()
                 {
@@ -51,7 +52,7 @@ namespace Community.Models
                     Email = "john@g.com"
                 };
 
-                MessageRepository.AddUser(user);
+                AddUser(user);
 
                 user = new User()
                 {
@@ -59,91 +60,91 @@ namespace Community.Models
                     Email = "mary@g.com"
                 };
 
-                MessageRepository.AddUser(user);
+                AddUser(user);
                 user = new User()
                 {
                     Name = "Bob",
                     Email = "bob@g.com"
                 };
 
-                MessageRepository.AddUser(user);
+                AddUser(user);
 
 
             }
             //Add dummy messages
-            if (MessageRepository.Messages.Count == 0)  // only do this if it hasn't been done already
+            if (Messages.Count == 0)  // only do this if it hasn't been done already
             {
                 message = new Message()
                 {
-                    To = MessageRepository.Users[0],
-                    From = MessageRepository.Users[1],
+                    To = Users[0],
+                    From = Users[1],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Hello",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
 
                 message = new Message()
                 {
-                    To = MessageRepository.Users[0],
-                    From = MessageRepository.Users[2],
+                    To = Users[0],
+                    From = Users[2],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Do you have this music?",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
 
                 message = new Message()
                 {
-                    To = MessageRepository.Users[0],
-                    From = MessageRepository.Users[2],
+                    To = Users[0],
+                    From = Users[2],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "When is the rehearsal?",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
 
                 message = new Message()
                 {
-                    To = MessageRepository.Users[0],
-                    From = MessageRepository.Users[1],
+                    To = Users[0],
+                    From = Users[1],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Next week's assignment!",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
                 message = new Message()
                 {
-                    To = MessageRepository.Users[2],
-                    From = MessageRepository.Users[0],
+                    To = Users[2],
+                    From = Users[0],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Did you get this?",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
 
 
                 message = new Message()
                 {
-                    To = MessageRepository.Users[1],
-                    From = MessageRepository.Users[0],
+                    To = Users[1],
+                    From = Users[0],
                     MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Due is this Monday!!",
                     IsReply = false
                 };
 
-                MessageRepository.AddMessage(message);
+                AddMessage(message);
             }
         }
     }

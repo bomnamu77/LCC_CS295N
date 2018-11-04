@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Community.Models;
 using System.Web;
+using Community.Repositories;
 
 namespace Community.Controllers
 {
     public class HomeController : Controller
     {
-        
 
+        IMessageRepository repo;
+            
+        public HomeController(IMessageRepository r)
+        {
+            repo = r;
+        }
         public IActionResult Index()
         {
             return View();
@@ -36,10 +42,10 @@ namespace Community.Controllers
         {
             // Messages that the first user (John, john@g.com) sent 
             // will be listed in the "Messages Sent" page  
-            List<Message> messages = MessageRepository.Messages.FindAll(
+            List<Message> messages = repo.Messages.FindAll(
                 delegate (Message msg)
                 {
-                    return msg.From.Email == "john@g.com" 
+                    return msg.From.Email == repo.Users[0].Email
                         && msg.IsReply==false;
 
                 });
@@ -52,10 +58,10 @@ namespace Community.Controllers
         {
             // Messages that the first user (John, john@g.com) received 
             // will be listed in the "Messages Received" page  
-            List<Message> messages = MessageRepository.Messages.FindAll(
+            List<Message> messages = repo.Messages.FindAll(
                 delegate (Message msg)
                 {
-                    return msg.To.Email == "john@g.com"
+                    return msg.To.Email == repo.Users[0].Email
                         && msg.IsReply == false;
 
                 });
@@ -78,7 +84,7 @@ namespace Community.Controllers
                 message.MsgID = Guid.NewGuid().ToString();
                 message.TimeStamp = DateTime.Now;
                 
-                MessageRepository.AddMessage(message);
+                repo.AddMessage(message);
 
                 return View("ViewMessage",message);
                 
@@ -102,7 +108,7 @@ namespace Community.Controllers
         [HttpPost]
         public RedirectToActionResult ReplyMessage(string msgid, string text)
         {
-            Message orgmsg = MessageRepository.GetMessageByID(msgid);
+            Message orgmsg = repo.GetMessageByID(msgid);
 
             //revert orginal "from" to new "to" and viceversa
             Message repmsg = new Message();
@@ -113,7 +119,7 @@ namespace Community.Controllers
             repmsg.TimeStamp = DateTime.Now;
             repmsg.Text = text;
             repmsg.IsReply = true;
-            MessageRepository.AddMessage(repmsg);
+            repo.AddMessage(repmsg);
             orgmsg.Replies.Add(repmsg);
 
             SetUserData();
@@ -135,7 +141,7 @@ namespace Community.Controllers
         [HttpPost]
         public RedirectToActionResult SetPriority(string msgid, int priority, string page)
         {
-            Message msg = MessageRepository.GetMessageByID(msgid);
+            Message msg = repo.GetMessageByID(msgid);
             
             msg.Priority = priority;
 
@@ -153,7 +159,7 @@ namespace Community.Controllers
         //Set user info to ViewData
         private void SetUserData()
         {
-            User user = MessageRepository.Users[0];
+            User user = repo.Users[0];
             ViewBag.UserName = user.Name;
             ViewBag.UserEmail = user.Email;
         }
