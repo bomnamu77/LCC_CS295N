@@ -125,5 +125,23 @@ namespace Community.Test
             Assert.True(repo.Messages[repo.Messages.Count - 1].IsReply);
             
         }
+
+        [Fact]
+        public void SetPriorityTest()
+        {
+            //Arrange
+            var repo = new FakeMessageRepository();
+            var homeController = new HomeController(repo);
+
+
+            //Act
+            string msgID = repo.Messages[0].MsgID;
+            
+            homeController.SetPriority(msgID,2, "ListSentMessage");
+
+            //Assert
+            Assert.Equal(2, repo.Messages[0].Priority);
+            
+        }
     }
 }

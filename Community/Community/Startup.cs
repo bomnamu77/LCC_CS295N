@@ -36,7 +36,7 @@ namespace Community
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Inject our repositories into our controllers
-            services.AddTransient<IMessageRepository, FakeMessageRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

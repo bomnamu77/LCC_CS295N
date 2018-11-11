@@ -78,7 +78,8 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[1],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Hello",
                     IsReply = false
@@ -90,7 +91,8 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[2],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Do you have this music?",
                     IsReply = false
@@ -102,7 +104,8 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[2],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "When is the rehearsal?",
                     IsReply = false
@@ -114,7 +117,8 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[1],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Next week's assignment!",
                     IsReply = false
@@ -125,7 +129,8 @@ namespace Community.Repositories
                 {
                     To = Users[2],
                     From = Users[0],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Did you get this?",
                     IsReply = false
@@ -138,7 +143,8 @@ namespace Community.Repositories
                 {
                     To = Users[1],
                     From = Users[0],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
+                    MsgID = (Messages.Count + 1).ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "Due is this Monday!!",
                     IsReply = false

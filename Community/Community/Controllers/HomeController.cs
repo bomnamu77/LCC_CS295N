@@ -81,7 +81,8 @@ namespace Community.Controllers
             SetUserData();
             if (ModelState.IsValid)
             {
-                message.MsgID = Guid.NewGuid().ToString();
+                message.MsgID = (repo.Messages.Count + 1).ToString();
+                //message.MsgID = Guid.NewGuid().ToString();
                 message.TimeStamp = DateTime.Now;
                 
                 repo.AddMessage(message);
@@ -142,7 +143,8 @@ namespace Community.Controllers
         public RedirectToActionResult SetPriority(string msgid, int priority, string page)
         {
             Message msg = repo.GetMessageByID(msgid);
-            
+
+            //priority: 1-Low, 2-Medium, 3- high
             msg.Priority = priority;
 
             SetUserData();
