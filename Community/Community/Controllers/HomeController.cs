@@ -40,17 +40,18 @@ namespace Community.Controllers
 
         public ViewResult ListSentMessage()
         {
+            SetUserData();
             // Messages that the first user (John, john@g.com) sent 
             // will be listed in the "Messages Sent" page  
             List<Message> messages = repo.Messages.FindAll(
                 delegate (Message msg)
                 {
-                    return msg.From.Email == repo.Users[0].Email
+                    return msg.From.Email == ViewBag.UserEmail
                         && msg.IsReply==false;
 
                 });
             messages.Sort((m1, m2) => DateTime.Compare(m1.TimeStamp, m2.TimeStamp));
-            SetUserData();
+            
             return View(messages);
         }
 
@@ -58,14 +59,15 @@ namespace Community.Controllers
         {
             // Messages that the first user (John, john@g.com) received 
             // will be listed in the "Messages Received" page  
+            SetUserData();
             List<Message> messages = repo.Messages.FindAll(
                 delegate (Message msg)
                 {
-                    return msg.To.Email == repo.Users[0].Email
+                    return msg.To.Email == ViewBag.UserEmail
                         && msg.IsReply == false;
 
                 });
-            SetUserData();
+            
             return View(messages);
         }
         [HttpGet]
@@ -81,8 +83,6 @@ namespace Community.Controllers
             SetUserData();
             if (ModelState.IsValid)
             {
-                message.MsgID = (repo.Messages.Count + 1).ToString();
-                //message.MsgID = Guid.NewGuid().ToString();
                 message.TimeStamp = DateTime.Now;
                 
                 repo.AddMessage(message);
@@ -101,13 +101,14 @@ namespace Community.Controllers
 
         [HttpGet]
         //Input message get
-        public ViewResult ReplyMessage(string msgid)
+        public ViewResult ReplyMessage(int msgid)
         {
             SetUserData();
-            return View("ReplyMessage", HttpUtility.HtmlDecode(msgid));
+            return View("ReplyMessage", msgid);
+            
         }
         [HttpPost]
-        public RedirectToActionResult ReplyMessage(string msgid, string text)
+        public RedirectToActionResult ReplyMessage(int msgid, string text)
         {
             Message orgmsg = repo.GetMessageByID(msgid);
 
@@ -115,13 +116,13 @@ namespace Community.Controllers
             Message repmsg = new Message();
             repmsg.To = orgmsg.From;
             repmsg.From= orgmsg.To;
-
-            repmsg.MsgID = Guid.NewGuid().ToString();
+           
             repmsg.TimeStamp = DateTime.Now;
             repmsg.Text = text;
             repmsg.IsReply = true;
-            repo.AddMessage(repmsg);
-            orgmsg.Replies.Add(repmsg);
+           
+            repo.AddReply(msgid, repmsg);
+            
 
             SetUserData();
 
@@ -134,20 +135,23 @@ namespace Community.Controllers
 
         [HttpGet]
         //Input message get
-        public ViewResult SetPriority(string msgid)
+        public ViewResult SetPriority(int msgid)
         {
             SetUserData();
-            return View("SetPriority", HttpUtility.HtmlDecode(msgid));
+            return View("SetPriority", msgid);
+
+            //return View("SetPriority", HttpUtility.HtmlDecode(msgid));
         }
         [HttpPost]
-        public RedirectToActionResult SetPriority(string msgid, int priority, string page)
+        public RedirectToActionResult SetPriority(int msgid, int priority, string page)
         {
+            SetUserData();
             Message msg = repo.GetMessageByID(msgid);
 
             //priority: 1-Low, 2-Medium, 3- high
             msg.Priority = priority;
 
-            SetUserData();
+            repo.SetPriority(msgid, priority);
 
             if (page=="sent")
                 return RedirectToAction("ListSentMessage");

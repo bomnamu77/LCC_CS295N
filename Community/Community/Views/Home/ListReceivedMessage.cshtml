@@ -22,7 +22,7 @@
             <tr>
                 <td>
                     @if (message.Priority == 0)
-                    {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID" asp-route-page="received">Priority</a>}
+                    {<a asp-action="SetPriority" asp-route-msgid="@message.MessageID" asp-route-page="received">Priority</a>}
                     @if (message.Priority == 1)
                     {<p style="color:black;"><b>Low</b></p>}
                     @if (message.Priority == 2)
@@ -35,7 +35,7 @@
                 <td>@message.From.Email</td>
                 <td>@message.TimeStamp</td>
                 <td>@message.Text</td>
-                <td><a asp-action="ReplyMessage" asp-route-msgid="@message.MsgID">Reply</a></td>
+                <td><a asp-action="ReplyMessage" asp-route-msgid="@message.MessageID">Reply</a></td>
             </tr>
             @if (message.Replies.Count > 0)
             {
@@ -44,7 +44,7 @@
                     <tr>
                         <td>
                             @if (r.Priority == 0)
-                            {<a asp-action="SetPriority" asp-route-msgid="@r.MsgID">Priority</a>}
+                            {<a asp-action="SetPriority" asp-route-msgid="@r.MessageID">Priority</a>}
                             @if (r.Priority == 1)
                             {<p style="color:black;"><b>Low</b></p>}
                             @if (r.Priority == 2)
@@ -57,7 +57,7 @@
                         <td>@r.TimeStamp</td>
                         <td>@r.Text</td>
                         <td></td>
-                        <!--td><a asp-action="ReplyMessage" asp-route-msgid="@r.MsgID">Reply</a></td-->
+                        <!--td><a asp-action="ReplyMessage" asp-route-msgid="@r.MessageID">Reply</a></td-->
                     </tr>
                 }
             }

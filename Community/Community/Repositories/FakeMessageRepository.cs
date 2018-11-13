@@ -29,13 +29,26 @@ namespace Community.Repositories
             users.Add(user);
         }
 
-        public Message GetMessageByID(string msgID)
+        public Message GetMessageByID(int msgID)
         {
-            Message message = messages.Find(m => m.MsgID == msgID);
+            Message message = messages.Find(m => m.MessageID == msgID);
             return message;
         }
 
+        public void SetPriority(int msgID, int priority)
+        {
+            Message message = GetMessageByID(msgID);
+            message.Priority = priority;
 
+        }
+
+        public void AddReply(int msgID, Message repMsg)
+        {
+
+            AddMessage(repMsg);
+            Message orgMsg = GetMessageByID(msgID);
+            orgMsg.Replies.Add(repMsg);
+        }
         void AddTestData()
         {
             Message message;
@@ -78,7 +91,7 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[1],
-                    MsgID = Guid.NewGuid().ToString(),
+                    
                     TimeStamp = DateTime.Now,
                     Text = "ABC",
                     IsReply = false
@@ -90,7 +103,6 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[2],
-                    MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "EDF",
                     IsReply = false
@@ -102,7 +114,7 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[2],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "GIG?",
                     IsReply = false
@@ -114,7 +126,7 @@ namespace Community.Repositories
                 {
                     To = Users[0],
                     From = Users[1],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "COOL!",
                     IsReply = false
@@ -125,7 +137,7 @@ namespace Community.Repositories
                 {
                     To = Users[2],
                     From = Users[0],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "MEME",
                     IsReply = false
@@ -138,7 +150,7 @@ namespace Community.Repositories
                 {
                     To = Users[1],
                     From = Users[0],
-                    MsgID = Guid.NewGuid().ToString(),
+                    //MsgID = Guid.NewGuid().ToString(),
                     TimeStamp = DateTime.Now,
                     Text = "TEST",
                     IsReply = false

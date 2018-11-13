@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     @if (message.Priority == 0)
-                    {<a asp-action="SetPriority" asp-route-msgid="@message.MsgID" asp-route-page="sent">Priority</a>}
+                    {<a asp-action="SetPriority" asp-route-msgid="@message.MessageID" asp-route-page="sent">Priority</a>}
                     @if (message.Priority == 1)
                     {<p style="color:black;"><b>Low</b></p>}
                     @if (message.Priority == 2)

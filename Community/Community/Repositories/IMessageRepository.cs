@@ -13,6 +13,10 @@ namespace Community.Repositories
 
         void AddMessage(Message message);
         void AddUser(User user);
-        Message GetMessageByID(string msgID);
+        Message GetMessageByID(int msgID);
+        //Set Priority method
+        void SetPriority(int msgID, int priority);
+        //Set Add Reply message method
+        void AddReply(int msgID, Message message);
     }
 }

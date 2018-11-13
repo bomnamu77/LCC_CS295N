@@ -26,7 +26,7 @@ namespace Community.Test
             {
                 To = new User { Name = "Spider Man", Email = "parkp@g.com" },
                 From = new User { Name = "Iron Man", Email = "starkt@g.com" },
-                MsgID = Guid.NewGuid().ToString(),
+                //MsgID = Guid.NewGuid().ToString(),
                 TimeStamp = DateTime.Now,
                 Text = "Hello",
                 IsReply = false
@@ -53,7 +53,7 @@ namespace Community.Test
             {
                 To = new User { Name = "Spider Man", Email = "parkp@g.com" },
                 From = repo.Users[0],
-                MsgID = Guid.NewGuid().ToString(),
+                //MsgID = Guid.NewGuid().ToString(),
                 TimeStamp = DateTime.Now,
                 Text = "Hello",
                 IsReply = false
@@ -82,7 +82,7 @@ namespace Community.Test
             {
                 From = new User { Name = "Spider Man", Email = "parkp@g.com" },
                 To = repo.Users[0],
-                MsgID = Guid.NewGuid().ToString(),
+                //MsgID = Guid.NewGuid().ToString(),
                 TimeStamp = DateTime.Now,
                 Text = "Hello",
                 IsReply = false
@@ -107,12 +107,12 @@ namespace Community.Test
 
 
             //Act
-            string msgID="";
+            int msgID = 1;
             foreach (Message m in repo.Messages)
             {
                 if (m.To.Equals(repo.Users[0]))
                 {
-                    msgID = m.MsgID;
+                    msgID = m.MessageID;
                     break;
                 }
             }
@@ -135,7 +135,7 @@ namespace Community.Test
 
 
             //Act
-            string msgID = repo.Messages[0].MsgID;
+            int msgID = repo.Messages[0].MessageID;
             
             homeController.SetPriority(msgID,2, "ListSentMessage");
 

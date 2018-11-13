@@ -1,5 +1,6 @@
 ﻿
 using Community.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,149 +10,56 @@ namespace Community.Repositories
 {
     public class MessageRepository:IMessageRepository
     {
-        private List<Message> messages = new List<Message>();
-        private List<User> users = new List<User>();
+        private AppDbContext context;
 
-        public List<Message> Messages { get { return messages; } }
-        public List<User> Users { get { return users; } }
+        public List<Message> Messages { get { return context.Messages.Include("From").Include("To").Include("Replies").ToList(); } }
+        public List<User> Users { get { return context.Users.ToList(); } }
 
-        public MessageRepository()
+        public MessageRepository(AppDbContext appDbContext)
         {
-            AddTestData();
+            
+            context = appDbContext;
         }
         public void AddMessage(Message message)
         {
-            messages.Add(message);
+            context.Messages.Add(message);
+            context.SaveChanges();
         }
 
         public void AddUser(User user)
         {
-            users.Add(user);
+
+            context.Users.Add(user);
+            context.SaveChanges();
         }
 
-        public Message GetMessageByID(string msgID)
+        public Message GetMessageByID(int msgID)
         {
-            Message message = messages.Find(m => m.MsgID == msgID);
+            Message message = context.Messages.Include("To").Include("From").First(m => m.MessageID == msgID);
             return message;
         }
 
-
-        void AddTestData()
+        public void SetPriority(int msgID, int priority)
         {
-            Message message;
-            User user;
+            Message message = GetMessageByID(msgID);
+            message.Priority = priority;
+            context.Messages.Update(message);
+            context.SaveChanges();
 
-            message = new Message();
-
-            //Add dummy users
-            if (Users.Count == 0)  // only do this if it hasn't been done already
-            {
-                user = new User()
-                {
-                    Name = "John",
-                    Email = "john@g.com"
-                };
-
-                AddUser(user);
-
-                user = new User()
-                {
-                    Name = "Mary",
-                    Email = "mary@g.com"
-                };
-
-                AddUser(user);
-                user = new User()
-                {
-                    Name = "Bob",
-                    Email = "bob@g.com"
-                };
-
-                AddUser(user);
-
-
-            }
-            //Add dummy messages
-            if (Messages.Count == 0)  // only do this if it hasn't been done already
-            {
-                message = new Message()
-                {
-                    To = Users[0],
-                    From = Users[1],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "Hello",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-
-                message = new Message()
-                {
-                    To = Users[0],
-                    From = Users[2],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "Do you have this music?",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-
-                message = new Message()
-                {
-                    To = Users[0],
-                    From = Users[2],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "When is the rehearsal?",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-
-                message = new Message()
-                {
-                    To = Users[0],
-                    From = Users[1],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "Next week's assignment!",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-                message = new Message()
-                {
-                    To = Users[2],
-                    From = Users[0],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "Did you get this?",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-
-
-                message = new Message()
-                {
-                    To = Users[1],
-                    From = Users[0],
-                    //MsgID = Guid.NewGuid().ToString(),
-                    MsgID = (Messages.Count + 1).ToString(),
-                    TimeStamp = DateTime.Now,
-                    Text = "Due is this Monday!!",
-                    IsReply = false
-                };
-
-                AddMessage(message);
-            }
+            
         }
+        public void AddReply(int msgID, Message repMsg)
+        {
+
+            context.Messages.Add(repMsg);
+
+            Message orgMsg = GetMessageByID(msgID);
+            orgMsg.Replies.Add(repMsg);
+            context.Messages.Update(orgMsg);
+            context.SaveChanges();
+
+
+        }
+
     }
 }
