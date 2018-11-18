@@ -62,8 +62,26 @@ namespace Community.Repositories
                         TimeStamp = DateTime.Now,
                         Text = "Music List",
                         IsReply = false
+                    },
+                    new Models.Message
+                    {
+                        From = toUser,
+                        To = fromUser,
+                        
+                        TimeStamp = DateTime.Now,
+                        Text = "Good to meet you!",
+                        IsReply = false
                     }
+                    ,
+                    new Models.Message
+                    {
+                        From = toUser,
+                        To = fromUser2,
 
+                        TimeStamp = DateTime.Now,
+                        Text = "Thanks note to donators",
+                        IsReply = false
+                    }
                 );
                 context.SaveChanges();
 
