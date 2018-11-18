@@ -39,7 +39,7 @@ namespace Community
             // Inject our repositories into our controllers
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-                Configuration["Data:Community:ConnectionString"]));
+               Configuration.GetConnectionString("SqlServerConnection")));
 
         }
 
