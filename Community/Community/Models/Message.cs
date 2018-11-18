@@ -18,7 +18,9 @@ namespace Community.Models
         public string Text { get; set; }
         public DateTime TimeStamp { get; set; }
         //replies from this message
-        public List<Message> Replies { get { return replies; } }
+        // ICollection is more flexible than List and can be modified. IEnumerable can't be modified
+        public ICollection<Message> Replies { get { return replies; } }
+        
         //An indicator whether this is replied message or not, default:false
         public bool IsReply { get; set; } = false;
         //Priority 1-3 (1: low, 2: medium, 3: high), default:0

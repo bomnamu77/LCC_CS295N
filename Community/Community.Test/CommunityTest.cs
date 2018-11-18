@@ -36,8 +36,9 @@ namespace Community.Test
             homeController.InputMessage(message);
 
             //Assert
+            List<Message> Messages = repo.Messages.ToList();
             Assert.Equal("Hello",
-                repo.Messages[repo.Messages.Count - 1].Text);
+                Messages[Messages.Count() - 1].Text);
         }
 
         [Fact]
@@ -120,9 +121,10 @@ namespace Community.Test
             homeController.ReplyMessage(msgID, "ReplyTest");
 
             //Assert
+            List<Message> Messages = repo.Messages.ToList();
             Assert.Equal("ReplyTest",
-               repo.Messages[repo.Messages.Count - 1].Text);
-            Assert.True(repo.Messages[repo.Messages.Count - 1].IsReply);
+               Messages[Messages.Count() - 1].Text);
+            Assert.True(Messages[Messages.Count - 1].IsReply);
             
         }
 
@@ -135,12 +137,14 @@ namespace Community.Test
 
 
             //Act
-            int msgID = repo.Messages[0].MessageID;
+            List<Message> Messages = repo.Messages.ToList();
+            int msgID = Messages[0].MessageID;
             
             homeController.SetPriority(msgID,2, "ListSentMessage");
 
             //Assert
-            Assert.Equal(2, repo.Messages[0].Priority);
+            Messages = repo.Messages.ToList();
+            Assert.Equal(2, Messages[0].Priority);
             
         }
     }

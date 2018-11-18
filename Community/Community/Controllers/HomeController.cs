@@ -43,13 +43,15 @@ namespace Community.Controllers
             SetUserData();
             // Messages that the first user (John, john@g.com) sent 
             // will be listed in the "Messages Sent" page  
-            List<Message> messages = repo.Messages.FindAll(
+            string userEmail = ViewBag.UserEmail;
+            List<Message> messages = repo.Messages.Where(p => p.From.Email == userEmail)
+                .Where(p => p.IsReply == false).ToList();/*
                 delegate (Message msg)
                 {
                     return msg.From.Email == ViewBag.UserEmail
                         && msg.IsReply==false;
 
-                });
+                });*/
             messages.Sort((m1, m2) => DateTime.Compare(m1.TimeStamp, m2.TimeStamp));
             
             return View(messages);
@@ -60,14 +62,10 @@ namespace Community.Controllers
             // Messages that the first user (John, john@g.com) received 
             // will be listed in the "Messages Received" page  
             SetUserData();
-            List<Message> messages = repo.Messages.FindAll(
-                delegate (Message msg)
-                {
-                    return msg.To.Email == ViewBag.UserEmail
-                        && msg.IsReply == false;
+            string userEmail = ViewBag.UserEmail;
+            List<Message> messages = repo.Messages.Where(p => p.To.Email == userEmail)
+                .Where(p => p.IsReply == false).ToList();
 
-                });
-            
             return View(messages);
         }
         [HttpGet]

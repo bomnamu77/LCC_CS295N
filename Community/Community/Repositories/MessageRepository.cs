@@ -12,7 +12,7 @@ namespace Community.Repositories
     {
         private AppDbContext context;
 
-        public List<Message> Messages { get { return context.Messages.Include("From").Include("To").Include("Replies").ToList(); } }
+        public IQueryable<Message> Messages { get { return context.Messages.Include("From").Include("To").Include("Replies"); } }
         public List<User> Users { get { return context.Users.ToList(); } }
 
         public MessageRepository(AppDbContext appDbContext)
@@ -25,7 +25,7 @@ namespace Community.Repositories
             context.Messages.Add(message);
             context.SaveChanges();
         }
-
+            
         public void AddUser(User user)
         {
 
@@ -35,7 +35,7 @@ namespace Community.Repositories
 
         public Message GetMessageByID(int msgID)
         {
-            Message message = context.Messages.Include("To").Include("From").First(m => m.MessageID == msgID);
+            Message message = Messages.First(m => m.MessageID == msgID);
             return message;
         }
 
@@ -51,7 +51,7 @@ namespace Community.Repositories
         public void AddReply(int msgID, Message repMsg)
         {
 
-            context.Messages.Add(repMsg);
+            AddMessage(repMsg);
 
             Message orgMsg = GetMessageByID(msgID);
             orgMsg.Replies.Add(repMsg);

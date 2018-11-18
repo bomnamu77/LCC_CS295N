@@ -12,7 +12,7 @@ namespace Community.Repositories
         private List<Message> messages = new List<Message>();
         private List<User> users = new List<User>();
 
-        public List<Message> Messages { get { return messages; } }
+        public IQueryable<Message> Messages { get { return messages.AsQueryable<Message>(); } }
         public List<User> Users { get { return users; } }
 
         public FakeMessageRepository()
@@ -85,7 +85,7 @@ namespace Community.Repositories
 
             }
             //Add dummy messages
-            if (Messages.Count == 0)  // only do this if it hasn't been done already
+            if (Messages.Count() == 0)  // only do this if it hasn't been done already
             {
                 message = new Message()
                 {

@@ -8,7 +8,7 @@ namespace Community.Repositories
 {
     public interface IMessageRepository
     {
-        List<Message> Messages { get; }
+        IQueryable<Message> Messages { get; }
         List<User> Users { get; }
 
         void AddMessage(Message message);
