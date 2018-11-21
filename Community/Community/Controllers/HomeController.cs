@@ -45,13 +45,7 @@ namespace Community.Controllers
             // will be listed in the "Messages Sent" page  
             string userEmail = ViewBag.UserEmail;
             List<Message> messages = repo.Messages.Where(p => p.From.Email == userEmail)
-                .Where(p => p.IsReply == false).ToList();/*
-                delegate (Message msg)
-                {
-                    return msg.From.Email == ViewBag.UserEmail
-                        && msg.IsReply==false;
-
-                });*/
+                .Where(p => p.IsReply == false).ToList();
             messages.Sort((m1, m2) => DateTime.Compare(m1.TimeStamp, m2.TimeStamp));
             
             return View(messages);
