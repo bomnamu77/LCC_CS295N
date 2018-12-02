@@ -25,11 +25,16 @@ namespace Community.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Link");
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("LocationID");
 

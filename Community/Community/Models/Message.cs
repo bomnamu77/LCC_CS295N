@@ -20,6 +20,7 @@ namespace Community.Models
         [Required(ErrorMessage = "Please enter your message")]
         public string Text { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime TimeStamp { get; set; }
         //replies from this message
         // ICollection is more flexible than List and can be modified. IEnumerable can't be modified

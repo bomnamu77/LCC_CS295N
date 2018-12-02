@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Community.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20181201094614_validation")]
+    [Migration("20181202045348_validation")]
     partial class validation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,16 @@ namespace Community.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Link");
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("LocationID");
 

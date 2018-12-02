@@ -48,8 +48,7 @@ namespace Community.Controllers
             ViewData["Message"] = "Significant people and links if available";
 
             List<People> peoples = repo.Peoples.OrderBy(p=>p.Name).ToList();
-            //peoples.Sort((p1, p2) => string.Compare(p1.Name, p2.Name, StringComparison.Ordinal));
-
+            
             return View(peoples);
         }
     }

@@ -52,6 +52,19 @@ namespace Community.Controllers
             return View(messages);
         }
 
+        [HttpPost]
+        public IActionResult ListSentMessage(string email)
+        {
+            
+            SetUserData();
+            string userEmail = ViewBag.UserEmail;
+            //Search messages that receiver has entered email
+            List<Message> messages = (from m in repo.Messages
+                                      where m.To.Email == email && m.From.Email == userEmail && m.IsReply == false
+                                      select m).ToList();
+            return View(messages);
+        }
+
         public ViewResult ListReceivedMessage()
         {
             // Messages that the first user (John, john@g.com) received 
@@ -69,9 +82,9 @@ namespace Community.Controllers
         {
             SetUserData();
             string userEmail = ViewBag.UserEmail;
-
+            //Search messages that sender has entered email
             List<Message> messages = (from m in repo.Messages
-                                where m.To.Email == userEmail && m.From.Email== email
+                                where m.To.Email == userEmail && m.From.Email== email && m.IsReply == false
                                 select m).ToList();
             return View(messages);
         }

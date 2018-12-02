@@ -116,7 +116,7 @@ namespace Community.Repositories
 
                 context.SaveChanges();
             }
-            if (!context.Locations.Any())
+            if (!context.Peoples.Any())
             {
                 context.Peoples.AddRange(
                     new Models.People
