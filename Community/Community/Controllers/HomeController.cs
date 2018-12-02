@@ -24,6 +24,7 @@ namespace Community.Controllers
             return View();
         }
 
+
         public IActionResult History()
         {
             ViewData["Message"] = "A brief history of the community";
@@ -62,6 +63,19 @@ namespace Community.Controllers
 
             return View(messages);
         }
+
+        [HttpPost]
+        public IActionResult ListReceivedMessage(string email)
+        {
+            SetUserData();
+            string userEmail = ViewBag.UserEmail;
+
+            List<Message> messages = (from m in repo.Messages
+                                where m.To.Email == userEmail && m.From.Email== email
+                                select m).ToList();
+            return View(messages);
+        }
+
         [HttpGet]
         //Input message get
         public ViewResult InputMessage()

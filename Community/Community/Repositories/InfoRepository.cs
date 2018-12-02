@@ -1,24 +1,34 @@
-﻿using System;
+﻿using Community.Models;
+using Community.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Community.Models
+namespace Community.Repositories
 {
-    public class InfoRepository
+    public class InfoRepository:IInfoRepository
     {
-        private static List<Location> locations = new List<Location>();
-        private static List<People> peoples = new List<People>();
+        private AppDbContext context;
 
-        public static List<Location> Locations { get { return locations; } }
-        public static List<People> Peoples { get { return peoples; } }
-        public static void AddLocation(Location location)
+        public IQueryable<Location> Locations { get { return context.Locations; } }
+        public IQueryable<People> Peoples { get { return context.Peoples; } }
+        public InfoRepository(AppDbContext appDbContext)
         {
-            locations.Add(location);
+
+            context = appDbContext;
         }
-        public static void AddPeople(People people)
+        public void AddLocation(Location location)
         {
-            peoples.Add(people);
+            context.Locations.Add(location);
+            context.SaveChanges();
+            
+        }
+        public void AddPeople(People people)
+        {
+            context.Peoples.Add(people);
+            context.SaveChanges();
+            
         }
     }
 }

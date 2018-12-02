@@ -86,6 +86,63 @@ namespace Community.Repositories
                 context.SaveChanges();
 
             }
+
+            if (!context.Locations.Any())
+            {
+
+                // This is temporary code, just for testing
+                context.Locations.AddRange(
+                    new Models.Location
+                    {
+                        Name = "Eugene Symphony",
+                        Link = "https://eugenesymphony.org/",
+                        Description = "Under the leadership of Music Director and Conductor Francesco Lecce-Chong, the Eugene Symphony's mission is enriching lives through the power of music."
+                    },
+
+                    new Models.Location
+                    {
+                        Name = "Hult Center",
+                        Link = "http://www.hultcenter.org/",
+                        Description = "Official Home of the Hult Center for the Performing Arts, Eugene, Oregon's most beautiful concert venue for touring shows, concerts, local events and tickets."
+                    },
+
+                    new Models.Location
+                    {
+                        Name = "Beacock Music Eugene",
+                        Link = "https://www.beacockmusic.com/",
+                        Description = "Music Shop"
+                    }
+                );
+
+                context.SaveChanges();
+            }
+            if (!context.Locations.Any())
+            {
+                context.Peoples.AddRange(
+                    new Models.People
+                    {
+                    Name = "Leonard Bernstein",
+                    Link = "https://en.wikipedia.org/wiki/Leonard_Bernstein",
+                    Description = "an American composer, conductor, author, music lecturer, and pianist."
+                    },
+                
+                    new Models.People
+                    {
+                        Name = "Richard Long",
+                        Link = "https://www.escorchestra.org/meet-the-conductor/",
+                        Description = "Conductor"
+                    },
+                    new Models.People
+                    {
+                        Name = "B.J. Novitski",
+                        Link = "https://www.escorchestra.org/board-of-directors/",
+                        Description = "Secretary/Treasurer/Webmaster"
+                    }
+                );
+
+                context.SaveChanges();
+            }
+            
         }
     }
 
