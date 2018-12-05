@@ -1,0 +1,42 @@
+﻿@model List<Comment>;
+@{
+    ViewData["Title"] = "ViewComment";
+}
+
+<h2>View Comments</h2>
+
+@if (Model != null)
+{
+
+    <table class="table table-sm table-striped table-bordered" border="1">
+        <thead>
+            <tr>
+                
+                <th>Commenter</th>
+                <th>Text</th>
+                <th>DateTime</th>
+                <th>Cheer</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Comment c in Model)
+            {
+                <tr>
+                    
+                    <td>@c.FromName (@c.FromEmail)</td>
+                    <td>@c.Text</td>
+                    <td>@c.TimeStamp</td>
+                    <td>@if (c.Cheer == true){<b style="color:pink">Cheer you!</b>}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (Model == null)
+{
+    <p> No Comments yet!</p>
+}
+
+<a asp-area="" asp-controller="Game" asp-action="AddComment" asp-route-to="@ViewBag.ToUser" asp-route-commenter="@ViewBag.FromUser">Add Comment</a>

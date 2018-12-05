@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Game";
+}
+
+<h2>Game</h2>
+<div class="row">
+
+    Player Name: @ViewBag.UserName <br/>
+    Player Email: @ViewBag.UserEmail <br/>
+    <form method="post">
+
+        <div class="form-group">
+            <label>Please select one!</label>
+            <br />
+
+            <img src="~/images/rock.jpg" />
+            <input type=radio name="selection" value="1" />
+            <label for="selection">Rock</label>
+            <img src="~/images/paper.jpg" />
+            <input type=radio name="selection" value="2" />
+            <label for="selection">Paper</label>
+            <img src="~/images/scissors.jpg" />
+            <input type=radio name="selection" value="3" />
+            <label for="selection">Scissos</label>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">
+                Submit
+            </button>
+        </div>
+    </form>
+
+
+
+</div>
+

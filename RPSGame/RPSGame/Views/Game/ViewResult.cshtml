@@ -1,0 +1,29 @@
+﻿@model RPSGame.Models.Game;
+@{
+    ViewData["Title"] = "ViewResult";
+}
+
+
+
+
+
+
+<div class="row">
+
+    <h2>Game Result:</h2><br />
+    Player : @ViewBag.UserName (@ViewBag.UserEmail) <br />
+    Result @if (Model.Result == 0)
+    {<p style="color:black;"><b>Draw!!</b></p>}
+    @if (Model.Result == 1)
+    {<p style="color:blue;"><b>You won!!</b></p>}
+    @if (Model.Result == 2)
+    {<p style="color:red;"><b>You lost!!</b></p>}
+
+
+
+
+</div>
+
+
+
+

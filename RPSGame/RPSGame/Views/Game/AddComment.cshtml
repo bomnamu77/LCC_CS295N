@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "AddComment";
+}
+
+<h2>Add Comments</h2>
+
+<form class="p-a-1" asp-action="AddComment" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" name="to" value=@ViewBag.ToUser />
+    <input type="hidden" name="commenter" value=@ViewBag.FromUser />
+    
+    <div class="form-group">
+        <label name="Text">Text</label>
+        <input type="text" name="commentText" />
+    </div>
+    <div class="form-group">
+        <label >Cheer</label>
+        <input type="checkbox" name="cheer"  value="cheer"/>
+    </div>
+    
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">
+            Submit
+        </button>
+    </div>
+</form> 

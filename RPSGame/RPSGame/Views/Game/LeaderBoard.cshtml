@@ -1,0 +1,49 @@
+﻿@model List<User>;
+@{
+    ViewData["Title"] = "LeaderBoard";
+}
+
+<h2>LeaderBoard</h2>
+
+
+@if (Model != null)
+{
+
+    <table class="table table-sm table-striped table-bordered" border="1">
+        <thead>
+            <tr>
+                <th>Po.</th>
+                <th>User</th>
+                <th>Results</th>
+                <th>Cheers</th>
+                <th>Comments</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{int position = 0;}
+            @foreach (User user in Model)
+            {
+                position += 1;
+                <tr>
+                    <td>@position</td>
+                    <td>@user.Name (@user.Email)</td>
+                    <td>Won:@user.Games.Count(g => g.Result == 1) Draw:@user.Games.Count(g => g.Result == 0) Lost:@user.Games.Count(g => g.Result == 2)</td>
+                    <td>@user.Comments.Count(g => g.Cheer == true)</td>
+                    <td>@user.Comments.Count comments <a asp-area="" asp-controller="Game" asp-action="ViewComment" asp-route-to="@user.Email" asp-route-commenter="@ViewBag.UserEmail">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form method="post">
+        Search by Player's name<br />
+        Enter Player's name:
+        <input name="name" />
+        <input type="submit" />
+    </form>
+}
+@if (Model == null)
+{
+    <p> No record yet!</p>
+}
+

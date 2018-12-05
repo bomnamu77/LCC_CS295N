@@ -1,0 +1,40 @@
+﻿@model List<Game>;
+@{
+    ViewData["Title"] = "MyRecord";
+}
+
+<h2>MyRecord</h2>
+    Player Name: @ViewBag.UserName <br />
+    Player Email: @ViewBag.UserEmail <br />
+    <br />
+@if (Model!= null)
+{
+    <p>Draw: @Model.Where(g => g.Result == 0).Count() |
+    Won: @Model.Where(g => g.Result == 1).Count() |
+    Lost: @Model.Where(g => g.Result == 2).Count()</p>
+    <table class="table table-sm table-striped table-bordered" border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Result</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Game game in Model)
+            {
+                <tr>
+                    <td>@game.TimeStamp</td>
+                    <td>@if (@game.Result == 0) {<b style="color:black">Draw</b>}
+                    @if(@game.Result  == 1) {<b style="color:blue">Won</b>}
+                    @if (@game.Result == 2) {<b style="color:red">Lost</b>}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (Model== null)
+{
+    <p> No record yet!</p>
+}

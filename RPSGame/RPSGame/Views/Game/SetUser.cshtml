@@ -1,0 +1,21 @@
+﻿@model User;
+@{
+    ViewData["Title"] = "User";
+}
+<h2>User</h2>
+<div class="row">
+    
+        Please enter Email and Name
+    <form method="post">
+        <div><span asp-validation-for="Email"> </span></div>
+        <label asp-for="Email">Email</label>
+
+        <input asp-for="Email" /><br />
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" /><br />
+
+        <input type="submit" value="Enter" />
+    </form>
+    
+    
+</div>
