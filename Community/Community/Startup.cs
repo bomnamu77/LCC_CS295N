@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Community.Models;
 using Community.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace Community
 
             // Inject our repositories into our controllers
             services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IInfoRepository, InfoRepository>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
                Configuration.GetConnectionString("SqlServerConnection")));
 

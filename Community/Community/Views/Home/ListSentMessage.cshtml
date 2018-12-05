@@ -38,7 +38,12 @@
         }
     </tbody>
 </table>
-
+<form method="post">
+    Search by Receiver<br />
+    Enter Receiver's email:
+    <input name="email" />
+    <input type="submit" />
+</form>
 <a asp-action="ListReceivedMessage">Messages Received</a> |
 <a asp-action="InputMessage">Send New Message</a> |
 <a asp-action="/">Home</a>
